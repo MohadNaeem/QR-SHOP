@@ -8,6 +8,7 @@ import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { nanoid } from "nanoid"
 import { captureFrame, loadVideoResource } from "~/utils/video"
+import { useAlert } from "react-alert"
 import { ILayer } from "@layerhub-io/types"
 import { toBase64 } from "~/utils/data"
 
@@ -16,6 +17,7 @@ export default function () {
   const [uploads, setUploads] = React.useState<any[]>([])
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
+  const alert = useAlert()
 
   const handleDropFiles = async (files: FileList) => {
     const file = files[0]
@@ -51,6 +53,7 @@ export default function () {
 
   const addImageToCanvas = (props: Partial<ILayer>) => {
     editor.objects.add(props)
+    alert.info('Zoom out to adjust image')
   }
   return (
     <DropZone handleDropFiles={handleDropFiles}>

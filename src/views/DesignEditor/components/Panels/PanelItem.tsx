@@ -36,7 +36,7 @@ const PanelsList = () => {
       $style={{
         background: "#ffffff",
         width: isSidebarOpen ? "306px" : 0,
-        marginLeft: smUp ? "70px" : '0px',
+        marginLeft: smUp ? "110px" : '0px',
         flex: "none",
         borderRight: "1px solid #d7d8e3",
         display: "flex",

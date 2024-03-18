@@ -7,9 +7,11 @@ import Scrollable from "~/components/Scrollable"
 import { vectors } from "~/constants/mock-data"
 import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
+import { useAlert } from "react-alert"
 
 const Graphics = () => {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
+  const alert = useAlert()
 
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
@@ -22,6 +24,7 @@ const Graphics = () => {
           src: url,
         }
         editor.objects.add(options)
+        alert('Zoom out to adjust image')
       }
     },
     [editor]
@@ -34,6 +37,7 @@ const Graphics = () => {
       src: url,
       type: "StaticVector",
     })
+    alert.success('Zoom out to adjust image')
   }
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -197,7 +197,8 @@ export const SAMPLE_TEMPLATES = [
     metadata: {
       animated: false,
     },
-    preview: "https://ik.imagekit.io/scenify/OnktZ7CLGntNeirIYZ_eN8Cm.png",
+    preview:
+      "https://firebasestorage.googleapis.com/v0/b/qrlab-shop.appspot.com/o/products%2F1710790548115?alt=media&token=d73c7fc4-cd1d-4341-b4d5-5dfcf83729c9",
   },
   {
     id: "sRQQYw0OOnctiJUBsMg6S",
@@ -367,7 +368,7 @@ export const SAMPLE_TEMPLATES = [
     metadata: {
       animated: false,
     },
-    preview: "https://ik.imagekit.io/scenify/2ZdeFFC6gdlw_LkzDN2J5cHs.png",
+    preview: "https://firebasestorage.googleapis.com/v0/b/qrlab-shop.appspot.com/o/products%2F1710791019463?alt=media&token=383a4396-d0a2-483a-a832-bc93b385ffd4",
   },
   {
     id: "x2shx-AJICr0dZo32dq9y",
@@ -537,7 +538,7 @@ export const SAMPLE_TEMPLATES = [
     metadata: {
       animated: false,
     },
-    preview: "https://ik.imagekit.io/scenify/hkHXvT7iOVnyZwLIkniU8WpA.png",
+    preview: "https://firebasestorage.googleapis.com/v0/b/qrlab-shop.appspot.com/o/products%2F1710791134945?alt=media&token=3d713237-b9fa-467f-a0c7-0655b526b14e",
   },
 ]
 

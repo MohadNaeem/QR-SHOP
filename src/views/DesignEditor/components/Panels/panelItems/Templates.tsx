@@ -10,11 +10,13 @@ import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import useEditorType from "~/hooks/useEditorType"
 import { loadVideoEditorAssets } from "~/utils/video"
+import { useSelector } from "react-redux"
 
 const Templates = () => {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const { setCurrentScene, currentScene } = useDesignEditorContext()
+  const { cartItems } = useSelector((state: any) => state.cart)
 
   const loadTemplate = React.useCallback(
     async (template: any) => {
@@ -33,7 +35,10 @@ const Templates = () => {
         if (filteredFonts.length > 0) {
           await loadFonts(filteredFonts)
         }
-
+        template.frame = {
+          width: parseInt(cartItems[0]?.width) * 96,
+          height: parseInt(cartItems[0]?.height) * 96,
+        }
         setCurrentScene({ ...template, id: currentScene?.id })
       }
     },
@@ -51,7 +56,19 @@ const Templates = () => {
           padding: "1.5rem",
         }}
       >
-        <Block>Templates</Block>
+        <Block>
+          Templates{" "}
+          <i
+            style={{
+              display: "flex",
+              alignItems: "center",
+              fontWeight: 400,
+              fontSize :  '13px'
+            }}
+          >
+           Be Aware! May not fit your frame size{" "}
+          </i>
+        </Block>
 
         <Block onClick={() => setIsSidebarOpen(false)} $style={{ cursor: "pointer", display: "flex" }}>
           <AngleDoubleLeft size={18} />

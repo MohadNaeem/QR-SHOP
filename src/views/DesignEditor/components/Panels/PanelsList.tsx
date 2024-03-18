@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mui/material"
 import { Block } from "baseui/block"
 
 const Container = styled("div", (props) => ({
-  width: "80px",
+  width: "120px",
   backgroundColor: props.$theme.colors.primary100,
   display: "flex",
 }))
@@ -26,7 +26,7 @@ const PanelsList = () => {
       <Scrollable autoHide={true} smUp={smUp}>
         {PANEL_ITEMS.map((panelListItem) => (
           <PanelListItem
-            label={t(`panels.panelsList.${panelListItem.id}`)}
+            label={panelListItem.id === "upload-qr" ? "Upload QR Codes" : t(`panels.panelsList.${panelListItem.id}`)}
             name={panelListItem.name}
             key={panelListItem.name}
             icon={panelListItem.name}
@@ -52,7 +52,7 @@ const PanelListItem = ({ label, icon, activePanel, name }: any) => {
         setActivePanel(name)
       }}
       $style={{
-        width: "80px",
+        width: "120px",
         height: "80px",
         backgroundColor: name === activePanel ? theme.colors.white : theme.colors.primary100,
         display: "flex",

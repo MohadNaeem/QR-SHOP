@@ -8,6 +8,10 @@ export const BASE_ITEMS = [
     name: "Customize",
   },
   {
+    id: "upload-qr",
+    name: "Uploads",
+  },
+  {
     id: "elements",
     name: "Elements",
   },
@@ -15,10 +19,10 @@ export const BASE_ITEMS = [
     id: "images",
     name: "Images",
   },
-  {
-    id: "uploads",
-    name: "Uploads",
-  },
+  // {
+  //   id: "uploads",
+  //   name: "Uploads",
+  // },
   {
     id: "text",
     name: "Text",
