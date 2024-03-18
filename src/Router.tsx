@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import DesignEditor from "~/views/DesignEditor"
 import Dashboard from "~/views/Dashboard"
 import { MyHomeComponent } from "./qr-lab/HomePage.jsx"
@@ -13,6 +13,7 @@ import { AuthWrapper } from "./qr-lab/components/AuthWrapper"
 import { useEffect, useState } from "react"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
+import ReactGA from 'react-ga';
 import { useDispatch } from "react-redux"
 import { useUserAuthContext } from "./qr-lab/context/AuthContext.jsx"
 
@@ -23,6 +24,7 @@ const Router = () => {
   const [variantId, setVariantId] = useState("")
   const [formValue, setFormValue] = useState({})
   const { user } = useUserAuthContext()
+  // const location = useLocation();
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProduct())

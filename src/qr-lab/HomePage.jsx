@@ -1,14 +1,20 @@
 import * as React from "react"
 import { MenuBarComponent } from "./components/MenuBarComponent" 
 import { useMediaQuery } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import ReactGA from 'react-ga';
+
 
 export function MyHomeComponent(props) {
   const navigate = useNavigate()
+  const location = useLocation();
   const smUp = useMediaQuery("(max-width:600px)")
   const onNavigate = (link) => {
     navigate.push(`/${link}`)
   }
+  React.useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
   return (
     <div className="flex flex-col items-stretch pt-5 pb-12 bg-neutral-50">
       {window.innerWidth < 700 ? (
