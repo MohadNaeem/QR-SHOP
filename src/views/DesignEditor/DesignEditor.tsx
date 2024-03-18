@@ -7,13 +7,16 @@ import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import Preview from "./components/Preview"
 import ContextMenu from "./components/ContextMenu"
 
-const DesignEditor = () => {
+interface IProps {
+  setVariantId: (data: any) => void
+}
+const DesignEditor = ({ setVariantId }: IProps) => {
   const editorType = useEditorType()
   const { displayPreview, setDisplayPreview } = useDesignEditorContext()
 
   return (
     <>
-      {displayPreview && <Preview isOpen={displayPreview} setIsOpen={setDisplayPreview} />}
+      {displayPreview && <Preview isOpen={displayPreview} setVariantId={setVariantId} setIsOpen={setDisplayPreview} />}
       {
         {
           NONE: <SelectEditor />,

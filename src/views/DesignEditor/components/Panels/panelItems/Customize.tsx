@@ -12,6 +12,7 @@ import Scrollable from "~/components/Scrollable"
 import { sampleFrames } from "~/constants/editor"
 import Scrollbar from "@layerhub-io/react-custom-scrollbar"
 import SwapHorizontal from "~/components/Icons/SwapHorizontal"
+import { useMediaQuery } from "@mui/material"
 import { Tabs, Tab } from "baseui/tabs"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
@@ -25,6 +26,7 @@ interface State {
 const Customize = () => {
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
+  const smUp = useMediaQuery("(max-width : 650px)")
 
   const [state, setState] = React.useState<State>({
     backgroundColor: "#000000",
@@ -61,7 +63,7 @@ const Customize = () => {
         <Block padding="0 1.5rem">
           <Block>
             <ResizeTemplate />
-            <Block $style={{ fontSize: "14px", textAlign: "center", paddingTop: "0.35rem" }}>1080 x 1920px</Block>
+            {/* <Block $style={{ fontSize: "14px", textAlign: "center", paddingTop: "0.35rem" }}>1080 x 1920px</Block> */}
           </Block>
 
           <Block paddingTop="0.5rem">
@@ -213,7 +215,7 @@ const ResizeTemplate = () => {
 
   return (
     <>
-      <Button
+      {/* <Button
         onClick={() => setIsOpen(true)}
         size={SIZE.compact}
         overrides={{
@@ -225,7 +227,7 @@ const ResizeTemplate = () => {
         }}
       >
         Resize template
-      </Button>
+      </Button> */}
       <Modal
         onClose={() => setIsOpen(false)}
         closeable={true}

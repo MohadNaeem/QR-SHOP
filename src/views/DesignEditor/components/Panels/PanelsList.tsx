@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import useEditorType from "~/hooks/useEditorType"
 import Scrollable from "~/components/Scrollable"
+import { useMediaQuery } from "@mui/material"
 import { Block } from "baseui/block"
 
 const Container = styled("div", (props) => ({
@@ -17,11 +18,12 @@ const Container = styled("div", (props) => ({
 const PanelsList = () => {
   const { activePanel } = useAppContext()
   const { t } = useTranslation("editor")
+  const smUp = useMediaQuery("(max-width : 650px)")
   const editorType = useEditorType()
   const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : BASE_ITEMS
   return (
     <Container>
-      <Scrollable autoHide={true}>
+      <Scrollable autoHide={true} smUp={smUp}>
         {PANEL_ITEMS.map((panelListItem) => (
           <PanelListItem
             label={t(`panels.panelsList.${panelListItem.id}`)}

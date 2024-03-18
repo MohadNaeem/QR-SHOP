@@ -17,7 +17,7 @@ import ListItemText from "@mui/material/ListItemText"
 import InboxIcon from "@mui/icons-material/MoveToInbox"
 import MailIcon from "@mui/icons-material/Mail"
 import { useSelector } from "react-redux"
-// import { useUserAuthContext } from "../../firebase/AuthContext";
+import { useUserAuthContext } from "../context/AuthContext";
 
 const drawerWidth = 240
 
@@ -34,10 +34,7 @@ export const MenuBarComponent = () => {
   const theme = useTheme()
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false)
-//   const { user, logOut } = useUserAuthContext()
-
-  const user = null
-  const logout = () => {}
+  const { user, logOut } = useUserAuthContext()
 
   const handleContactClick = () => {
     const mailToUrl = "mailto:hello@qrlab.com"
@@ -65,8 +62,8 @@ export const MenuBarComponent = () => {
   const handleDrawerClose = () => {
     setOpen(false)
   }
-//   const { cartItems } = useSelector((state) => state.cart)
-  const cartItemCount = 5
+  const { cartItems } = useSelector((state) => state.cart)
+  const cartItemCount = cartItems.length
 
   return window.innerWidth < 600 ? (
     <>
@@ -136,7 +133,7 @@ export const MenuBarComponent = () => {
                   if (text === "Contact") {
                     handleContactClick()
                   } else {
-                    onNavigate(text.toLowerCase)
+                    onNavigate(text.toLowerCase())
                   }
                 }}
               >

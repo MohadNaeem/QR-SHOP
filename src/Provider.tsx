@@ -10,27 +10,40 @@ import { DesignEditorProvider } from "./contexts/DesignEditor"
 import { I18nextProvider } from "react-i18next"
 import { TimerProvider } from "@layerhub-io/use-timer"
 import i18next from "i18next"
+import Router from "./Router"
+import { positions, transitions, Provider as AlertProvider } from "react-alert"
+import AlertTemplate from "react-alert-template-basic"
 import "./translations"
+import { UserAuthContextProvider as AuthContext } from "./qr-lab/context/AuthContext.jsx"
 
 const engine = new Styletron()
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_CENTER,
+  transition: transitions.SCALE,
+}
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ReduxProvier store={store}>
-      <DesignEditorProvider>
-        <TimerProvider>
-          <AppProvider>
-            <ScenifyProvider>
-              <StyletronProvider value={engine}>
-                <BaseProvider theme={LightTheme}>
-                  <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
-                </BaseProvider>
-              </StyletronProvider>
-            </ScenifyProvider>
-          </AppProvider>
-        </TimerProvider>
-      </DesignEditorProvider>
-    </ReduxProvier>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <AuthContext>
+        <ReduxProvier store={store}>
+          <DesignEditorProvider>
+            <TimerProvider>
+              <AppProvider>
+                <ScenifyProvider>
+                  <StyletronProvider value={engine}>
+                    <BaseProvider theme={LightTheme}>
+                      <I18nextProvider i18n={i18next}>{children}</I18nextProvider>
+                    </BaseProvider>
+                  </StyletronProvider>
+                </ScenifyProvider>
+              </AppProvider>
+            </TimerProvider>
+          </DesignEditorProvider>
+        </ReduxProvier>
+      </AuthContext>
+    </AlertProvider>
   )
 }
 

@@ -50,7 +50,7 @@ const Elements = () => {
               },
             }}
           >
-            Computer
+            This PC
           </Button>
         </Block> */}
         <Block>

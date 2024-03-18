@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { styled, ThemeProvider, DarkTheme } from "baseui"
 import { Theme } from "baseui/theme"
 import { Button, KIND } from "baseui/button"
@@ -9,11 +9,15 @@ import { Block } from "baseui/block"
 import { useEditor } from "@layerhub-io/react"
 import useEditorType from "~/hooks/useEditorType"
 import { IScene } from "@layerhub-io/types"
+import { useMediaQuery } from "@mui/material"
 import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
 import { IDesign } from "~/interfaces/DesignEditor"
 import Github from "~/components/Icons/Github"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { Modal, ROLE } from "baseui/modal"
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -28,7 +32,11 @@ const Navbar = () => {
   const { setDisplayPreview, setScenes, setCurrentDesign, currentDesign, scenes } = useDesignEditorContext()
   const editorType = useEditorType()
   const editor = useEditor()
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(true)
   const inputFileRef = React.useRef<HTMLInputElement>(null)
+  const smUp = useMediaQuery("(max-width : 650px)")
+  const { cartItems } = useSelector((state: any) => state?.cart)
 
   const parseGraphicJSON = () => {
     const currentScene = editor.scene.exportToJSON()
@@ -63,7 +71,6 @@ const Navbar = () => {
       console.log("NO CURRENT DESIGN")
     }
   }
-
   const parsePresentationJSON = () => {
     const currentScene = editor.scene.exportToJSON()
 
@@ -142,6 +149,27 @@ const Navbar = () => {
     a.click()
   }
 
+  useEffect(() => {
+    if (!cartItems.length) navigate(`/products`)
+    setIsLoading(true)
+    setTimeout(() => {
+      if (editor) {
+        editor.frame.resize({
+          width: parseInt(cartItems[0]?.width) * 96,
+          height: parseInt(cartItems[0]?.height) * 96,
+        })
+        setCurrentDesign({
+          ...currentDesign,
+          frame: {
+            width: parseInt(cartItems[0]?.width) * 96,
+            height: parseInt(cartItems[0]?.height) * 96,
+          },
+        })
+        setIsLoading(false)
+      }
+    }, 2000)
+  }, [editor])
+
   const makeDownloadTemplate = async () => {
     if (editor) {
       if (editorType === "GRAPHIC") {
@@ -149,7 +177,7 @@ const Navbar = () => {
       } else if (editorType === "PRESENTATION") {
         return parsePresentationJSON()
       } else {
-      return parseVideoJSON()
+        return parseVideoJSON()
       }
     }
   }
@@ -261,9 +289,29 @@ const Navbar = () => {
   return (
     // @ts-ignore
     <ThemeProvider theme={DarkTheme}>
-      <Container>
-        <div style={{ color: "#ffffff" }}>
+      <Container
+        style={{
+          backgroundColor: "rgb(99 102 241 / 1)",
+          width: smUp && "250vw",
+        }}
+      >
+        <div
+          style={{ color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "25px" }}
+        >
           <Logo size={36} />
+          <div
+            style={{
+              // padding: "6rem 1rem 1rem",
+              textAlign: "center",
+              // fontWeight: 600,
+              fontSize: "12px",
+              color: "dark-maroon",
+              textWrap: "wrap",
+            }}
+            // className="truncate"
+          >
+            Frame Size is already adjusted according to product size. Adjust your design within frame for best results
+          </div>
         </div>
         <DesignTitle />
         <Block $style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
@@ -275,7 +323,7 @@ const Navbar = () => {
             ref={inputFileRef}
             style={{ display: "none" }}
           />
-          <Button
+          {/* <Button
             size="compact"
             onClick={handleInputFileRefClick}
             kind={KIND.tertiary}
@@ -303,7 +351,7 @@ const Navbar = () => {
             }}
           >
             Export
-          </Button>
+          </Button> */}
           <Button
             size="compact"
             onClick={() => setDisplayPreview(true)}
@@ -316,18 +364,48 @@ const Navbar = () => {
               },
             }}
           >
-            <Play size={24} />
-          </Button>
-
-          <Button
-            size="compact"
-            onClick={() => window.location.replace("https://github.com/angellikgh/react-design-editor")}
-            kind={KIND.tertiary}
-          >
-            <Github size={24} />
+            Confirm Design {"->"}
           </Button>
         </Block>
       </Container>
+      <Modal
+        onClose={() => setIsLoading(false)}
+        closeable={true}
+        isOpen={isLoading}
+        animate
+        autoFocus
+        size="auto"
+        role={ROLE.dialog}
+        overrides={{
+          Dialog: {
+            style: {
+              borderTopRightRadius: "8px",
+              borderEndStartRadius: "8px",
+              borderEndEndRadius: "8px",
+              borderStartEndRadius: "8px",
+              borderStartStartRadius: "8px",
+            },
+          },
+        }}
+      >
+        <Block $style={{ padding: "0 1.5rem", width: "440px", height: "220px" }}>
+          <Block
+            $style={{
+              padding: "6rem 1rem 1rem",
+              textAlign: "center",
+              fontWeight: 600,
+              color: "white",
+            }}
+          >
+            Getting Designer Ready For You
+          </Block>
+        </Block>
+        {/* <Block $style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: "2rem" }}>
+          <Button disabled={!isEnabled} onClick={applyResize} style={{ width: "190px" }}>
+            Resize template
+          </Button>
+        </Block> */}
+      </Modal>
     </ThemeProvider>
   )
 }
