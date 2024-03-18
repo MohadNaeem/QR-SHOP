@@ -18,10 +18,6 @@ import { useUserAuthContext } from "./qr-lab/context/AuthContext.jsx"
 
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY
 
-import ReactGA from 'react-ga';
-const TRACKING_ID = "G-F4X6ZNC3YR"; // OUR_TRACKING_ID
-ReactGA.initialize(TRACKING_ID);
-
 const Router = () => {
   const [stripeApiKey, setStripeApiKey] = useState("")
   const [variantId, setVariantId] = useState("")
