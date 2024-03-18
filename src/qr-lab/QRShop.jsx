@@ -24,7 +24,7 @@ import "./styles/cart.css"
 import { useUserAuthContext } from "./context/AuthContext"
 const STRIPE_KEY = import.meta.env.VITE_APP_STRIPE_KEY
 
-export const API_URL = "http://localhost:3030"
+export const API_URL = "https://qrlab-shop-0e4dcc9b118a.herokuapp.com"
 
 export function CartComponent({ setVariantId }) {
   const history = useNavigate()
