@@ -31,6 +31,7 @@ export default function CheckoutForm({ confirmOrder, order }) {
         orderId: order?.id,
       },
     });
+    
 
     if (paymentIntent && paymentIntent.status === "succeeded") {
       confirmOrder();
