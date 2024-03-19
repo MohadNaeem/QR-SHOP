@@ -34,6 +34,7 @@ export const MenuBarComponent = () => {
   const theme = useTheme()
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false)
+  const smUp = useMediaQuery("(max-width:600px)")
   const { user, logOut } = useUserAuthContext()
 
   const handleContactClick = () => {
@@ -65,7 +66,7 @@ export const MenuBarComponent = () => {
   const { cartItems } = useSelector((state) => state.cart)
   const cartItemCount = cartItems.length
 
-  return window.innerWidth < 600 ? (
+  return smUp ? (
     <>
       <div
         className="flex justify-between flex-row align-center p-2 pt-0 w-100 max-md:px-8"

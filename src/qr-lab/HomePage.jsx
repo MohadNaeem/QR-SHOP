@@ -10,7 +10,7 @@ export function MyHomeComponent(props) {
   const location = useLocation();
   const smUp = useMediaQuery("(max-width:600px)")
   const onNavigate = (link) => {
-    navigate.push(`/${link}`)
+    navigate(`/${link}`)
   }
   React.useEffect(() => {
     ReactGA.pageview(location.pathname + location.search);
