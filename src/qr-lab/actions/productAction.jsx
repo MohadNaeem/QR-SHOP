@@ -51,10 +51,38 @@ export const getProduct = (keyword = "", currentPage = 1, price = [0, 100000], c
           })
         }
       })
-      const data = productsData.sort((a, b) => b.product_id - a.product_id)
+      const data = {
+        634: [], // ornaments
+        181: [], // iphones
+        3: [], // canvas
+        694: [], // calendar
+        172: [], // frame
+        505: [], // stickers
+        611: [], // coaters
+        568: [], // greeting card
+        others: [],
+      }
+      productsData.map((product) => {
+        console.log(Object.keys(data))
+        if (Object.keys(data).includes(product.product_id?.toString())) {
+          data[product.product_id].push(product)
+        } else {
+          data["others"].push(product)
+        }
+      })
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
-        payload: data,
+        payload: [
+          ...data[505],
+          ...data[611],
+          ...data[568],
+          ...data[3],
+          ...data[181],
+          ...data[694],
+          ...data[172],
+          ...data[634],
+          ...data["others"],
+        ],
       })
       setTimeout(() => {}, 1000)
     } catch (error) {
